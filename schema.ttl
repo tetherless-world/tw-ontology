@@ -31,7 +31,11 @@
         dc:rights            "This ontology is distributed under a Creative Commons Attribution License http://creativecommons.org/licenses/by/3.0/"@en ;
         owl:versionInfo      "v 1.0 $Revision: 11325 $: $Author: pwest $: $Date: 2015-08-04 01:56:21 -0600 (Tue, 04 Aug 2015) $:" ;
         rdf:type             <http://rdfs.org/ns/void#Dataset;> ;
-        void:sparqlEndpoint  <http://tw.rpi.edu/endpoint/> .
+        void:sparqlEndpoint  <http://tw.rpi.edu/endpoint/> ;
+        void:feature         <http://www.w3.org/ns/formats/N3> ;
+        void:feature         <http://www.w3.org/ns/formats/N-Triples> ;
+        void:feature         <http://www.w3.org/ns/formats/RDF_XML> ;
+        void:feature         <http://www.w3.org/ns/formats/Turtle> .
 
 :Publication  rdf:type    owl:Class ;
         rdfs:subClassOf   foaf:Document ;
