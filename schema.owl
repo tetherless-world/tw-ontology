@@ -51,6 +51,10 @@
     <owl:versionInfo>v 1.0 $Revision: 11325 $: $Author: pwest $: $Date: 2015-08-04 01:56:21 -0600 (Tue, 04 Aug 2015) $:</owl:versionInfo>
     <rdf:type rdf:resource="&void;Dataset;"/>
     <void:sparqlEndpoint rdf:resource="http://tw.rpi.edu/endpoint/"/>
+    <void:feature rdf:resource="http://www.w3.org/ns/formats/N3"/>
+    <void:feature rdf:resource="http://www.w3.org/ns/formats/N-Triples"/>
+    <void:feature rdf:resource="http://www.w3.org/ns/formats/RDF_XML"/>
+    <void:feature rdf:resource="http://www.w3.org/ns/formats/Turtle"/>
   </owl:Ontology>
 
 <!-- Classes -->

@@ -16,18 +16,18 @@
 @prefix dc:    <http://purl.org/dc/terms/> .
 @prefix sioc:  <http://rdfs.org/sioc/ns#> .
 
-:Collaborator  a          owl:Class ;
-        rdfs:comment      "Role assigned to individuals who are associated with a research project"@en ;
-        rdfs:isDefinedBy  : ;
-        rdfs:label        "Collaborator"@en ;
-        rdfs:subClassOf   :Role .
-
 :ResearchCollaborator
         a                 owl:Class ;
         rdfs:comment      "A researcher collaborating with an organization"@en ;
         rdfs:isDefinedBy  : ;
         rdfs:label        "Research Collaborator"@en ;
         rdfs:subClassOf   :Collaborator .
+
+:Collaborator  a          owl:Class ;
+        rdfs:comment      "Role assigned to individuals who are associated with a research project"@en ;
+        rdfs:isDefinedBy  : ;
+        rdfs:label        "Collaborator"@en ;
+        rdfs:subClassOf   :Role .
 
 :TeachingAssistant  a     owl:Class ;
         rdfs:comment      "A student who assists in teaching a class"@en ;
@@ -113,6 +113,12 @@ foaf:depiction  a         owl:ObjectProperty ;
         rdfs:range        foaf:Document ;
         owl:inverseOf     :hasAuthor .
 
+:PosterPresentation  a    owl:Class ;
+        rdfs:comment      "A poster presented at a conference or workshop"@en ;
+        rdfs:isDefinedBy  : ;
+        rdfs:label        "Poster Presentation"@en ;
+        rdfs:subClassOf   :Presentation .
+
 :hasCameraReadyDeadline
         a                   owl:ObjectProperty ;
         rdfs:comment        "Indicates the deadline for camera ready submissions for an event."@en ;
@@ -120,12 +126,6 @@ foaf:depiction  a         owl:ObjectProperty ;
         rdfs:label          "Camera Ready Deadline"@en ;
         rdfs:range          time:Instant ;
         rdfs:subPropertyOf  :hasDeadline .
-
-:PosterPresentation  a    owl:Class ;
-        rdfs:comment      "A poster presented at a conference or workshop"@en ;
-        rdfs:isDefinedBy  : ;
-        rdfs:label        "Poster Presentation"@en ;
-        rdfs:subClassOf   :Presentation .
 
 :taggedWithConcept  a     owl:ObjectProperty ;
         rdfs:comment      "Indicates that the subject is tagged with a hierarchical vocabulary term"@en ;
@@ -1153,6 +1153,7 @@ foaf:name  a              owl:DatatypeProperty ;
         dc:publisher         <http://tw.rpi.edu/instances/TetherlessWorldConstellation> ;
         dc:rights            "This ontology is distributed under a Creative Commons Attribution License http://creativecommons.org/licenses/by/3.0/"@en ;
         dc:title             "Tetherless World Constellation Ontology"@en ;
+        void:feature         <http://www.w3.org/ns/formats/N-Triples> , <http://www.w3.org/ns/formats/N3> , <http://www.w3.org/ns/formats/Turtle> , <http://www.w3.org/ns/formats/RDF_XML> ;
         void:sparqlEndpoint  <http://tw.rpi.edu/endpoint/> ;
         owl:imports          <http://xmlns.com/foaf/spec/index.rdf> , sioc: , time: ;
         owl:versionInfo      "v 1.0 $Revision: 11325 $: $Author: pwest $: $Date: 2015-08-04 01:56:21 -0600 (Tue, 04 Aug 2015) $:" .
