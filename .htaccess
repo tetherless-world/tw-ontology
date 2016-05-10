@@ -1,4 +1,5 @@
 AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
 AddType text/turtle .ttl
 AddType text/n3 .n3
 AddType application/n-triples .nt
@@ -13,33 +14,7 @@ RewriteRule ^instances/(.+) view.php?src=instances.rdf&q=$1 [L]
 RewriteRule ^instances/$ view.php?src=instances.rdf [L]
 RewriteRule ^schema/(.+)\.(.+)$ view.php?src=schema.owl&q=$1&output=$2
 RewriteRule ^schema/(.+)$ view.php?src=schema.owl&q=$1 [L]
-RewriteRule ^schema/$ schema.var [L]
+RewriteRule ^schema/$ /schema [R]
+RewriteRule ^schema.html/$ /schema [R]
 RewriteRule ^schema$ schema.var [L]
-
-# Rewrite rule to serve HTML content
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^schema$ http://www.essepuntato.it/lode/owlapi/http://tw.rpi.edu/schema.owl [R=303,L]
-
-# Rewrite rule to serve RDF/XML content if requested
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^schema$ http://info.deepcarbon.net/schema.owl [R=303]
-
-# Rewrite rule to serve n3 content if requested
-RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^schema$ http://info.deepcarbon.net/schema.n3 [R=303]
-
-# Rewrite rule to serve n-tuples content if requested
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^schema$ http://info.deepcarbon.net/schema.nt [R=303]
-
-# Rewrite rule to serve json-ld content if requested
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^schema$ http://info.deepcarbon.net/schema.json [R=303]
-
-# Choose the default response
-RewriteCond %{HTTP_ACCEPT} text/ttl
-RewriteRule ^schema$ http://info.deepcarbon.net/schema.ttl [R=303]
 
