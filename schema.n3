@@ -1,0 +1,1108 @@
+@prefix :      <http://tw.rpi.edu/schema/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix swrl:  <http://www.w3.org/2003/11/swrl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix protege: <http://protege.stanford.edu/plugins/owl/protege#> .
+@prefix skos:  <http://www.w3.org/2008/05/skos#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix daml:  <http://www.daml.org/2001/03/daml+oil#> .
+@prefix ical:  <http://www.w3.org/2002/12/cal/ical#> .
+@prefix xsp:   <http://www.owl-ontologies.com/2005/08/07/xsp.owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix dc:    <http://purl.org/dc/terms/> .
+@prefix sioc:  <http://rdfs.org/sioc/ns#> .
+
+:Collaborator  a         owl:Class ;
+        rdfs:comment     "Role assigned to individuals who are associated with a research project"@en ;
+        rdfs:label       "Collaborator"@en ;
+        rdfs:subClassOf  :Role .
+
+:ResearchCollaborator
+        a                owl:Class ;
+        rdfs:comment     "A researcher collaborating with an organization"@en ;
+        rdfs:label       "Research Collaborator"@en ;
+        rdfs:subClassOf  :Collaborator .
+
+:TeachingAssistant  a    owl:Class ;
+        rdfs:comment     "A student who assists in teaching a class"@en ;
+        rdfs:label       "Teaching Assistant"@en ;
+        rdfs:subClassOf  :Student .
+
+:PosterPaper  a          owl:Class ;
+        rdfs:comment     "A poster presented at a workshop or conference"@en ;
+        rdfs:label       "Poster Paper"@en ;
+        rdfs:subClassOf  :Publication .
+
+time:Instant  a  owl:Class .
+
+:PrincipalInvestigator
+        a                owl:Class ;
+        rdfs:comment     "Lead investigator and contact for a grant"@en ;
+        rdfs:label       "Principal Investigator"@en ;
+        rdfs:subClassOf  :Collaborator .
+
+:hasLeadProfessor  a  owl:ObjectProperty ;
+        rdfs:comment  "Specifies the professor in charge of investigating a particular\n    theme or teaching a particular course in the curriculum"@en ;
+        rdfs:label    "Lead Professor"@en ;
+        rdfs:range    foaf:Person .
+
+:hasInterest  a       owl:ObjectProperty ;
+        rdfs:comment  "Indicates that a person has a particular interest"@en ;
+        rdfs:domain   foaf:Agent ;
+        rdfs:label    "Has Interest"@en ;
+        rdfs:range    :Concept .
+
+:DirectorWebScienceOperations
+        a                owl:Class ;
+        rdfs:comment     "A person who is responsible for the operations of all projects\n    >related to Web Science"@en ;
+        rdfs:label       "Director of Web Science Operations"@en ;
+        rdfs:subClassOf  :Staff , :Member , :Occupation .
+
+:hasSelectionContext  a  owl:ObjectProperty ;
+        rdfs:comment  "The context for which something is selected"@en ;
+        rdfs:domain   :SelectedWork ;
+        rdfs:label    "Has Selection Context"@en .
+
+foaf:depiction  a   owl:ObjectProperty ;
+        rdfs:range  foaf:Image .
+
+:completionDate  a    owl:ObjectProperty ;
+        rdfs:comment  "Indicates the date the action item was completed"@en ;
+        rdfs:domain   :ActionItem ;
+        rdfs:label    "Completion Date"@en ;
+        rdfs:range    time:Instant .
+
+:SymposiumPaper  a       owl:Class ;
+        rdfs:comment     "A paper published in the proceedings of a symposium"@en ;
+        rdfs:label       "Symposium Paper"@en ;
+        rdfs:subClassOf  :ProceedingPaper .
+
+:Researcher  a           owl:Class ;
+        rdfs:comment     "An individual who performs research, but is not a student"@en , "An individual who does research"@en ;
+        rdfs:label       "Researcher"@en ;
+        rdfs:subClassOf  :Staff .
+
+:hasAgentWithRole  a  owl:ObjectProperty ;
+        rdfs:comment  "Specifies that a project, event, organization, class, course, or\n    other thing has an individual with a particular role"@en ;
+        rdfs:label    "Has Agent with Role"@en ;
+        rdfs:range    :Role .
+
+:ofDocument  a         owl:ObjectProperty ;
+        rdfs:comment   "Relates an author role to a specific document"@en ;
+        rdfs:domain    :Author ;
+        rdfs:label     "On Document"@en ;
+        rdfs:range     foaf:Document ;
+        owl:inverseOf  :hasAuthor .
+
+:PosterPresentation  a   owl:Class ;
+        rdfs:comment     "A poster presented at a conference or workshop"@en ;
+        rdfs:label       "Poster Presentation"@en ;
+        rdfs:subClassOf  :Presentation .
+
+:hasCameraReadyDeadline
+        a                   owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for camera ready submissions for an event."@en ;
+        rdfs:label          "Camera Ready Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:taggedWithConcept  a  owl:ObjectProperty ;
+        rdfs:comment  "Indicates that the subject is tagged with a hierarchical vocabulary term"@en ;
+        rdfs:label    "Tagged with Concept"@en ;
+        rdfs:range    skos:Concept .
+
+:nameSuffix  a        owl:DatatypeProperty ;
+        rdfs:comment  "Indicates suffixes for a person's name, e.g. Sr., Jr., III, etc."@en ;
+        rdfs:label    "Name Suffix"@en ;
+        rdfs:range    xsd:string .
+
+:hasText  a           owl:DatatypeProperty ;
+        rdfs:comment  "Text for the meeting notes or an action item"@en ;
+        rdfs:label    "Text"@en ;
+        rdfs:range    xsd:string .
+
+foaf:OnlineAccount  a  owl:Class .
+
+:SoftwareEngineer  a     owl:Class ;
+        rdfs:comment     "An individual employed to perform software development"@en ;
+        rdfs:label       "Software Engineer"@en ;
+        rdfs:subClassOf  :ResearchAssociate .
+
+:hasAuthor  a          owl:ObjectProperty ;
+        rdfs:comment   "An author of a document"@en ;
+        rdfs:domain    foaf:Document ;
+        rdfs:label     "Author"@en ;
+        rdfs:range     :Author ;
+        owl:inverseOf  :ofDocument .
+
+:hasCourseGoal  a           owl:DatatypeProperty ;
+        rdfs:comment        "Indicates the aims and objectives of a tought course"@en ;
+        rdfs:label          "Course Goal"@en ;
+        rdfs:range          xsd:string ;
+        rdfs:subPropertyOf  :goal .
+
+:dueDate  a           owl:ObjectProperty ;
+        rdfs:comment  "Indicates the date the Action Item should be completed by"@en ;
+        rdfs:domain   :ActionItem ;
+        rdfs:label    "Due Date"@en .
+
+:hasPosterDeadline  a       owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for poster submissions for an event."@en ;
+        rdfs:label          "Poster Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:EventPresentation  a    owl:Class ;
+        rdfs:comment     "A presentation given at a particular event"@en ;
+        rdfs:label       "Event Presentation"@en ;
+        rdfs:subClassOf  :Presentation .
+
+:Agency  a               owl:Class ;
+        rdfs:comment     "An agency (or its divisions/directorates) provides funding for a project"@en ;
+        rdfs:label       "Agency"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:hasDateTimeCoverage  a  owl:ObjectProperty ;
+        rdfs:comment  "Indicates the duration of a project, role, or event"@en ;
+        rdfs:label    "Duration"@en ;
+        rdfs:range    time:Interval .
+
+:hasAcronym  a        owl:DatatypeProperty ;
+        rdfs:comment  "Specifies an acronym for an organization"@en ;
+        rdfs:label    "Acronym"@en ;
+        rdfs:range    xsd:string .
+
+:hasAbstract  a       owl:DatatypeProperty ;
+        rdfs:comment  "Specifies the abstract text for a publication or presentation"@en ;
+        rdfs:label    "Abstract"@en ;
+        rdfs:range    xsd:string .
+
+:summary  a                 owl:DatatypeProperty ;
+        rdfs:comment        "a brief statement or account of the main points of something\n    "@en ;
+        rdfs:label          "Summary"@en ;
+        rdfs:subPropertyOf  dc:description .
+
+:PrimaryAdvisor  a       owl:Class ;
+        rdfs:comment     "An individual who is the primary advisor to a student"@en ;
+        rdfs:label       "Primary Advisor"@en ;
+        rdfs:subClassOf  :Advisor .
+
+:DemoPaper  a            owl:Class ;
+        rdfs:comment     "A paper prepared to demonstrate research or other technologies"@en ;
+        rdfs:label       "Demonstration Paper"@en ;
+        rdfs:subClassOf  :Publication .
+
+:hasDate  a           owl:ObjectProperty ;
+        rdfs:comment  "The day something is made available"@en ;
+        rdfs:label    "Has Date"@en ;
+        rdfs:range    time:Instant .
+
+:GraduateStudent  a      owl:Class ;
+        rdfs:comment     "A student seeking a graduate degree"@en ;
+        rdfs:label       "Graduate Student"@en ;
+        rdfs:subClassOf  :Student .
+
+:hasTitle  a          owl:DatatypeProperty ;
+        rdfs:comment  "Indicates the title of a publication, presentation, or announcement"@en ;
+        rdfs:domain   foaf:Document ;
+        rdfs:label    "Title"@en ;
+        rdfs:range    xsd:string .
+
+:hasAbstractDeadline  a     owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for abstract submissions for an event."@en ;
+        rdfs:label          "Abstract Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:ActionItem  a           owl:Class ;
+        rdfs:comment     "An action item assigned during a meeting"@en ;
+        rdfs:label       "Action Item"@en ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      :assignedTo
+                         ] ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:maxCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      :completionDate
+                         ] ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   :dueDate
+                         ] .
+
+:ProceedingPaper  a      owl:Class ;
+        rdfs:comment     "A paper published in a conference proceedings"@en ;
+        rdfs:label       "Proceeding Paper"@en ;
+        rdfs:subClassOf  :Publication .
+
+:withAffiliation  a   owl:ObjectProperty ;
+        rdfs:comment  "Relates a role with an organization"@en ;
+        rdfs:domain   :Role ;
+        rdfs:label    "Affiliation"@en ;
+        rdfs:range    foaf:Organization .
+
+:CourseClass  a          owl:Class ;
+        rdfs:comment     "\n\tA class given for a course that takes place at a specific time\n    "@en ;
+        rdfs:label       "Course Class"@en ;
+        rdfs:subClassOf  :Event .
+
+:CIRSSSeminarSeries  a   owl:Class ;
+        rdfs:comment     "The aim of the CIRSS Seminar Series is to provide a relaxed, no-prep venue for sharing our current research by presenting reruns of our recent conference presentations. All CIRSS faculty and student affiliates are welcome to present, and session attendance is open to the entire campus community. The series is organized by the Center for Informatics Research in Science and Scholarship at the University of Illinois at Urbana-Champaign."@en ;
+        rdfs:label       "CIRSS Seminar Series"@en ;
+        rdfs:subClassOf  :Seminar .
+
+:Laboratory  a           owl:Class ;
+        rdfs:comment     "\n      A laboratory is a facility that provides controlled conditions in which scientific research, experiments, and measurement may be performed.\n    "@en ;
+        rdfs:label       "Laboratory"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:hasUploadDeadline  a       owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for final uploads for an event."@en ;
+        rdfs:label          "Upload Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:hasLocation  a       owl:ObjectProperty ;
+        rdfs:comment  "Indicates the location of a particular agent or event"@en ;
+        rdfs:label    "Has Location"@en .
+
+:ResearchAssociateProfessor
+        a                owl:Class ;
+        rdfs:comment     "A research associate professor not yet with tenure"@en ;
+        rdfs:label       "Research Associate Professor"@en ;
+        rdfs:subClassOf  :Faculty .
+
+:TWeD   a                owl:Class ;
+        rdfs:comment     "Tetherless World Wednesday Night Talks"@en ;
+        rdfs:label       "TWeD"@en ;
+        rdfs:subClassOf  :Event .
+
+:hasParentOrganization
+        a             owl:ObjectProperty ;
+        rdfs:comment  "Indicates that one organization is part of another organization"@en ;
+        rdfs:domain   foaf:Organization ;
+        rdfs:label    "Parent Organization"@en ;
+        rdfs:range    foaf:Organization .
+
+:Presentation  a         owl:Class ;
+        rdfs:comment     "A presentation given for a work, e.g. internal talks or talks given at conferences or workshops"@en ;
+        rdfs:label       "Presentation"@en ;
+        rdfs:subClassOf  foaf:Document .
+
+:ProjectCollaborator  a  owl:Class ;
+        rdfs:comment     "A person collaborating with an organization on a project"@en ;
+        rdfs:label       "Project Collaborator"@en ;
+        rdfs:subClassOf  :Collaborator .
+
+:BookChapter  a          owl:Class ;
+        rdfs:comment     "A chapter published as part of a book"@en ;
+        rdfs:label       "Book Chapter"@en ;
+        rdfs:subClassOf  :Publication .
+
+:Intern  a               owl:Class ;
+        rdfs:comment     "\n      A student or trainee who works, sometimes without pay, at a trade\n      or occupation in order to gain work experience.\n    "@en ;
+        rdfs:label       "Intern"@en ;
+        rdfs:subClassOf  :Occupation , :Role .
+
+:Member  a               owl:Class ;
+        rdfs:comment     "Member of an organization"@en ;
+        rdfs:label       "Member"@en ;
+        rdfs:subClassOf  :Role .
+
+:WorkshopPaper  a        owl:Class ;
+        rdfs:comment     "A paper published in the proceedings of a workshop"@en ;
+        rdfs:label       "Workshop Paper"@en ;
+        rdfs:subClassOf  :ProceedingPaper .
+
+:ResearchScientist  a    owl:Class ;
+        rdfs:comment     "A scientist hired to perform research"@en ;
+        rdfs:label       "Research Scientist"@en ;
+        rdfs:subClassOf  :Researcher , :Occupation .
+
+:hasSponsor  a        owl:ObjectProperty ;
+        rdfs:comment  "Indicates the organization that sponsors a particular project"@en ;
+        rdfs:label    "Sponsored By"@en ;
+        rdfs:range    foaf:Agent .
+
+:SelectedWork  a          owl:Class ;
+        rdfs:comment      "Works, such as publications and presentations, that are selected >for presentation for a particular thing, such as a project"@en ;
+        rdfs:label        "Selected Work"@en ;
+        owl:disjointWith  foaf:Document .
+
+:Publication  a          owl:Class ;
+        rdfs:comment     "A formal publication of a work, usually research related (although not necessarily)"@en ;
+        rdfs:label       "Publication"@en ;
+        rdfs:subClassOf  foaf:Document .
+
+:DirectorDataOperations
+        a                owl:Class ;
+        rdfs:comment     "A person who is responsible for the operations of all projects\n    >related to Data Science"@en ;
+        rdfs:label       "Director of Data Operations"@en ;
+        rdfs:subClassOf  :Staff , :Researcher , :Member , :Occupation .
+
+:President  a            owl:Class ;
+        rdfs:comment     "\n      The elected head of an organization\n    "@en ;
+        rdfs:label       "President"@en ;
+        rdfs:subClassOf  :Occupation , :Role .
+
+foaf:logo  a          owl:ObjectProperty ;
+        rdfs:comment  "Represents a logo for a theme, project, or organization"@en ;
+        rdfs:label    "Logo"@en ;
+        rdfs:range    foaf:Image .
+
+:hasAttendee  a       owl:ObjectProperty ;
+        rdfs:comment  "An attendee of a meeting"@en ;
+        rdfs:label    "Attendee"@en ;
+        rdfs:range    foaf:Person .
+
+:MasterStudent  a        owl:Class ;
+        rdfs:comment     "A student seeking a Master's degree"@en ;
+        rdfs:label       "Master Student"@en ;
+        rdfs:subClassOf  :GraduateStudent .
+
+:hasProgram  a        owl:ObjectProperty ;
+        rdfs:comment  "Indicates that an agency funds a program"@en ;
+        rdfs:domain   foaf:Organization ;
+        rdfs:label    "Has Program"@en ;
+        rdfs:range    :Program .
+
+:AssociateResearchScientist
+        a                owl:Class ;
+        rdfs:comment     "\n\tA scholar with a Masters or PhD in fields of science participating in research projects\n    "@en ;
+        rdfs:label       "Associate Research Scientist"@en ;
+        rdfs:subClassOf  :ResearchScientist .
+
+:ResearchEngineer  a     owl:Class ;
+        rdfs:comment     "An engineer hired to perform research"@en ;
+        rdfs:label       "Research Engineer"@en ;
+        rdfs:subClassOf  :Researcher , :Occupation .
+
+:LightningTalk  a        owl:Class ;
+        rdfs:comment     "A talk/presentation given at an event that has a short duration, such as 3-5 minutes"@en ;
+        rdfs:label       "Lightning Talk"@en ;
+        rdfs:subClassOf  :Presentation .
+
+:UndergraduateResearcher
+        a                owl:Class ;
+        rdfs:comment     "\n      Undergraduate Student working with a lab on an Independent Study\n      and/or with a Undergraduate Research Program\n    "@en ;
+        rdfs:label       "Undergraduate Researcher"@en ;
+        rdfs:subClassOf  :Student .
+
+:Advisor  a              owl:Class ;
+        rdfs:comment     "An individual who advises a student"@en ;
+        rdfs:label       "Advisor"@en ;
+        rdfs:subClassOf  :Role .
+
+:hasAnnouncementDate  a  owl:ObjectProperty ;
+        rdfs:comment  "Indicates the date of an announcement"@en ;
+        rdfs:domain   :Announcement ;
+        rdfs:label    "Date"@en ;
+        rdfs:range    time:Instant .
+
+:FullProfessor  a        owl:Class ;
+        rdfs:comment     "A research professor with tenure"@en ;
+        rdfs:label       "Full Professor"@en ;
+        rdfs:subClassOf  :Faculty .
+
+foaf:name  a          owl:DatatypeProperty ;
+        rdfs:comment  "Indicates the name of an entity"@en ;
+        rdfs:label    "Name"@en .
+
+:Museum  a               owl:Class ;
+        rdfs:comment     "\n      A museum is an institution that cares for (conserves) a collection of artifacts and other objects of scientific, artistic, cultural, or historical importance and makes them available for public viewing through exhibits that may be permanent or temporary.\n    "@en ;
+        rdfs:label       "Museum"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:page   a                   owl:DatatypeProperty ;
+        rdfs:comment        "A page in the Tetherless World site representing an entity"@en ;
+        rdfs:label          "Tetherless World Page"@en ;
+        rdfs:subPropertyOf  foaf:page .
+
+:hasPaperDeadline  a        owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for paper submissions to an event."@en ;
+        rdfs:label          "Paper Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:hasTutorialDeadline  a     owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for tutorial submissions for an event."@en ;
+        rdfs:label          "Tutorial Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:Workshop  a             owl:Class ;
+        rdfs:comment     "The class of all workshops"@en ;
+        rdfs:label       "Workshop"@en ;
+        rdfs:subClassOf  :Event .
+
+:SystemAdministrator  a  owl:Class ;
+        rdfs:comment     "An individual who manages the IT resources of an organization"@en ;
+        rdfs:label       "System Administrator"@en ;
+        rdfs:subClassOf  :Administrator .
+
+:JournalPaper  a         owl:Class ;
+        rdfs:comment     "A paper published in a journal volume"@en ;
+        rdfs:label       "Journal Paper"@en ;
+        rdfs:subClassOf  :Publication .
+
+:hasResponsibility  a  owl:ObjectProperty ;
+        rdfs:comment  "The relationship between an entity and one or more responsibilities it has (usually under a tw:Role)."@en ;
+        rdfs:label    "Has Responsibility"@en ;
+        rdfs:range    :Responsibility .
+
+:PositionPaper  a        owl:Class ;
+        rdfs:comment     "A position paper is an essay that presents an opinion about an issue, typically that of the author or another specified entity"@en ;
+        rdfs:label       "Position Paper"@en ;
+        rdfs:subClassOf  :Publication .
+
+:PostDoc  a              owl:Class ;
+        rdfs:comment     "An individual who has completed a doctorate and performs research, but does not hold a professorship"@en ;
+        rdfs:label       "Post-Doc"@en ;
+        rdfs:subClassOf  :ResearchScientist .
+
+:middleInitial  a     owl:DatatypeProperty ;
+        rdfs:comment  "Indicates the middle initial of a person. XSLT will allow for middle names and truncate to a single letter where required."@en ;
+        rdfs:label    "Middle Initial"@en ;
+        rdfs:range    xsd:string .
+
+:Track  a                owl:Class ;
+        rdfs:comment     "Represents a particular track in multi-track conferences"@en ;
+        rdfs:label       "Track"@en ;
+        rdfs:subClassOf  :Event .
+
+:hasReference  a      owl:ObjectProperty ;
+        rdfs:comment  "Indicates that something refers to something else"@en ;
+        rdfs:label    "A Reference to something"@en .
+
+:Presenter  a            owl:Class ;
+        rdfs:comment     "Indicates that a person gave a presentation"@en ;
+        rdfs:label       "Presenter"@en ;
+        rdfs:subClassOf  :Author .
+
+:Student  a              owl:Class ;
+        rdfs:comment     "A student enrolled in an educational system"@en ;
+        rdfs:label       "Student"@en ;
+        rdfs:subClassOf  :Role .
+
+:Book   a                owl:Class ;
+        rdfs:comment     "A book publication"@en ;
+        rdfs:label       "Book"@en ;
+        rdfs:subClassOf  :Publication .
+
+:Panel  a                owl:Class ;
+        rdfs:Comment     "a small group of people brought together to discuss, >investigate, or decide on a particular matter"@en ;
+        rdfs:label       "Panel"@en ;
+        rdfs:subClassOf  :Event .
+
+:Directorate  a          owl:Class ;
+        rdfs:comment     "Representation of a directorate in an organization"@en ;
+        rdfs:label       "Directorate"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:hasDeadline  a       owl:ObjectProperty ;
+        rdfs:comment  "A generic property to indicate deadlines for events."@en ;
+        rdfs:label    "Deadline"@en ;
+        rdfs:range    time:Instant .
+
+:GuestSpeaker  a         owl:Class ;
+        rdfs:comment     "An event given by a guest of an organization on a particular topic"@en ;
+        rdfs:label       "Guest Speaker"@en ;
+        rdfs:subClassOf  :Event .
+
+:Event  a                owl:Class ;
+        rdfs:comment     "Represents a continguous period of time when something of importance takes place"@en ;
+        rdfs:label       "Event"@en ;
+        rdfs:subClassOf  ical:Vevent .
+
+:hasMeetingNotes  a   owl:ObjectProperty ;
+        rdfs:comment  "Meeting notes for a meeting"@en ;
+        rdfs:domain   :Meeting ;
+        rdfs:label    "Meeting Notes"@en ;
+        rdfs:range    :MeetingNote .
+
+:Concept  a              owl:Class ;
+        rdfs:comment     "A single topic or idea that various objects can embody"@en ;
+        rdfs:label       "Concept"@en ;
+        rdfs:subClassOf  skos:Concept .
+
+:Author  a               owl:Class ;
+        rdfs:comment     "Represents an individual's role in authoring a paper"@en ;
+        rdfs:label       "Author"@en ;
+        rdfs:subClassOf  :Role .
+
+:DoctorOfPhilosophy  a   owl:Class ;
+        rdfs:comment     "Individuals who have completed their doctorate work and obtained their doctoral degree in Philosophy"@en ;
+        rdfs:label       "Doctor of Philosophy"@en ;
+        rdfs:subClassOf  :Doctor .
+
+:UseCaseStory  a         owl:Class ;
+        rdfs:comment     "\n    A Use Case Story is a broad description of a software system and how individual actors might interact with it. From the Use Case story we can derive a set of much more specific and singular Use Cases. This is literally telling the story of the system.\n    "@en ;
+        rdfs:label       "Use-Case Story Document"@en ;
+        rdfs:subClassOf  foaf:Document .
+
+:Journal  a              owl:Class ;
+        rdfs:comment     "Representation of a journal in which scientific articles are published"@en ;
+        rdfs:label       "Journal"@en ;
+        rdfs:subClassOf  :Publication .
+
+:MastersThesis  a        owl:Class ;
+        rdfs:comment     "A thesis prepared by a candidate for a Masters degree"@en ;
+        rdfs:label       "Masters' Thesis"@en ;
+        rdfs:subClassOf  :Thesis .
+
+:Occupation  a        owl:Class ;
+        rdfs:comment  "A formal role one plays in an organization, usually tied to payment of some form"@en ;
+        rdfs:label    "Occupation"@en .
+
+:hasThemeReference  a       owl:ObjectProperty ;
+        rdfs:comment        "Indicates that a document, project, or event refers to a theme"@en ;
+        rdfs:label          "References Theme"@en ;
+        rdfs:range          :Theme ;
+        rdfs:subPropertyOf  :hasReference .
+
+:hasPublicationReference
+        a                   owl:ObjectProperty ;
+        rdfs:comment        "Indicates that a document references another document (either implicitly or via explicit citation)"@en ;
+        rdfs:domain         foaf:Document ;
+        rdfs:label          "References Publication"@en ;
+        rdfs:range          :Publication ;
+        rdfs:subPropertyOf  :hasReference .
+
+:inEvent  a           owl:ObjectProperty ;
+        rdfs:comment  "Relates a track to a conference or workshop"@en ;
+        rdfs:label    "In"@en .
+
+:OWLED  a                owl:Class ;
+        rdfs:comment     "The set of all meetings of the OWL Experiences and Directions"@en ;
+        rdfs:label       "OWL Experiences and Direction"@en ;
+        rdfs:subClassOf  :Conference .
+
+:Staff  a                owl:Class ;
+        rdfs:comment     "Individuals employed by the Tetherless World who are not research oriented"@en ;
+        rdfs:label       "Staff"@en ;
+        rdfs:subClassOf  :Role .
+
+:FundingOrganization  a  owl:Class ;
+        rdfs:comment     "\n      An organization that provides funding through grants, gifts, or other means, to another organization for specific purposes.\n    "@en ;
+        rdfs:label       "Funding Organization"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:PointOfContact  a       owl:Class ;
+        rdfs:comment     "Represents an individual who is one to communicate regarding a\n    particular thing, such as for a document, instrument, dataset\n    "@en ;
+        rdfs:label       "Point of Contact"@en ;
+        rdfs:subClassOf  :Role .
+
+:isbn   a                   owl:DatatypeProperty ;
+        rdfs:comment        "Indicates an ISBN for a publication"@en ;
+        rdfs:label          "International Standard Book Number"@en ;
+        rdfs:subPropertyOf  dc:identifier .
+
+:Thesis  a               owl:Class ;
+        rdfs:comment     "A formal document that represents the culmination of an advanced degree"@en ;
+        rdfs:label       "Thesis"@en ;
+        rdfs:subClassOf  :Publication .
+
+:Tutorial  a             owl:Class ;
+        rdfs:comment     "A class offered as part of a conference or workshop"@en ;
+        rdfs:label       "Tutorial"@en ;
+        rdfs:subClassOf  :CourseClass .
+
+:UseCase  a              owl:Class ;
+        rdfs:comment     "\n    In software and systems engineering, a use case is a list of steps, typically defining interactions between a role (known in Unified Modeling Language (UML) as an \"actor\") and a system, to achieve a goal. The actor can be a human or an external system. - Wikipedia.  It is a very specific, singular interaction between the role and the system. A Use Case Story is a much broader description of the system and how actors interact with it, containing multiple Use Cases.\n    "@en ;
+        rdfs:label       "Use-Case Document"@en ;
+        rdfs:subClassOf  foaf:Document .
+
+:hasCourseNumber  a   owl:DatatypeProperty ;
+        rdfs:comment  "Indicates the number associated with a course"@en ;
+        rdfs:domain   :CourseClass ;
+        rdfs:label    "Course Number"@en ;
+        rdfs:range    xsd:string .
+
+:hasSelection  a      owl:ObjectProperty ;
+        rdfs:comment  "The work selected"@en ;
+        rdfs:domain   :SelectedWork ;
+        rdfs:label    "Has Selection"@en .
+
+:hasRole  a           owl:ObjectProperty ;
+        rdfs:comment  "Establishes an individual's role"@en ;
+        rdfs:domain   foaf:Agent ;
+        rdfs:label    "Has Role"@en ;
+        rdfs:range    :Role .
+
+:LDAPAccount  a          owl:Class ;
+        rdfs:comment     "An account used within the Tetherless World Constellation for >access to resources"@en ;
+        rdfs:label       "TW Online Account"@en ;
+        rdfs:subClassOf  foaf:OnlineAccount .
+
+:goal   a                   owl:DatatypeProperty ;
+        rdfs:comment        "aim or desired result of a given activity, such as for a use case\n    or report"@en ;
+        rdfs:label          "Goal"@en ;
+        rdfs:subPropertyOf  dc:description .
+
+:Alumni  a               owl:Class ;
+        rdfs:comment     "An individual who has received his or her degree"@en ;
+        rdfs:label       "Alumni"@en ;
+        rdfs:subClassOf  :Role .
+
+:ResearchComputerScientist
+        a                owl:Class ;
+        rdfs:comment     "An individual with a degree in Computer Science working at a Research facility"@en ;
+        rdfs:label       "Research Computer Scientist"@en ;
+        rdfs:subClassOf  :Researcher , :Occupation .
+
+:number  a            owl:DatatypeProperty ;
+        rdfs:comment  "Relates an object to some number (usually an index)"@en ;
+        rdfs:label    "number"@en ;
+        rdfs:range    xsd:positiveInteger .
+
+:hasShortDescription  a  owl:DatatypeProperty ;
+        rdfs:comment  "A short description of an entity"@en ;
+        rdfs:label    "Short Description"@en .
+
+:Corporation  a          owl:Class ;
+        rdfs:comment     "\n      A corporation is an association of individuals, created by law or under authority of law, having a continuous existence independent of the existences of its members, and powers and liabilities distinct from those of its members.\n    "@en ;
+        rdfs:label       "Corporation"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:TwAnnouncement  a       owl:Class ;
+        rdfs:comment     "An announcement that mentions, or pertains to, the Tetherless World Constellation"@en ;
+        rdfs:label       "Tetherless World Announcement"@en ;
+        rdfs:subClassOf  :Announcement .
+
+:ResearchInstitute  a    owl:Class ;
+        rdfs:comment     "\n      A research institute is an establishment endowed for doing research. Research institutes may specialize in basic research or may be oriented to applied research.\n    "@en ;
+        rdfs:label       "Research Institute"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:hasBio  a                  owl:DatatypeProperty ;
+        rdfs:comment        "an account of someone's life or career"@en ;
+        rdfs:label          "Biography"@en ;
+        rdfs:subPropertyOf  dc:description .
+
+:cc     a             owl:ObjectProperty ;
+        rdfs:comment  "Indicates that updates on Trac for the action item should be CCed to the specified individual"@en ;
+        rdfs:domain   :ActionItem ;
+        rdfs:label    "Carbon Copy"@en ;
+        rdfs:range    foaf:Person .
+
+:hasCitationNumber  a  owl:DatatypeProperty ;
+        rdfs:comment  "Specifies the citation number of a publication or presentation"@en ;
+        rdfs:label    "Citation Number"@en ;
+        rdfs:range    xsd:string .
+
+:Role   a             owl:Class ;
+        rdfs:comment  "A role an individual plays in relation to some entity (e.g., organization, project, etc.)"@en ;
+        rdfs:label    "Role"@en .
+
+:CoInvestigator  a       owl:Class ;
+        rdfs:comment     "Co investigator and contact for a grant"@en ;
+        rdfs:label       "Co-Investigator"@en ;
+        rdfs:subClassOf  :Collaborator .
+
+:hasProjectReference  a     owl:ObjectProperty ;
+        rdfs:comment        "Indicates a relationship between a document and a project"@en ;
+        rdfs:label          "Related Project"@en ;
+        rdfs:range          foaf:Project ;
+        rdfs:subPropertyOf  :hasReference .
+
+:TechnicalReport  a      owl:Class ;
+        rdfs:comment     "A report document prepared as part of a grant or proposal"@en ;
+        rdfs:label       "Technical Report"@en ;
+        rdfs:subClassOf  :Publication .
+
+:InTheNews  a            owl:Class ;
+        rdfs:comment     "Mention of the Tetherless World or its members in a news article"@en ;
+        rdfs:label       "News Report"@en ;
+        rdfs:subClassOf  :Announcement .
+
+:AbstractPublication  a  owl:Class ;
+        rdfs:comment     "An abstract published in a publication"@en ;
+        rdfs:label       "Abstract"@en ;
+        rdfs:subClassOf  :Publication .
+
+:DemoPresentation  a     owl:Class ;
+        rdfs:comment     "A demonstration of a tool or technology, usually given in conjunction with a DemoPaper"@en ;
+        rdfs:label       "Demonstration Presentation"@en ;
+        rdfs:subClassOf  :Presentation .
+
+:PhdThesis  a            owl:Class ;
+        rdfs:comment     "A thesis prepared for completion of a doctorate"@en ;
+        rdfs:label       "Dissertation"@en ;
+        rdfs:subClassOf  :Thesis .
+
+:Division  a             owl:Class ;
+        rdfs:comment     "Representation of a division in an organization"@en ;
+        rdfs:label       "Division"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:Conference  a           owl:Class ;
+        rdfs:comment     "The class of all conferences"@en ;
+        rdfs:label       "Conference"@en ;
+        rdfs:subClassOf  :Event .
+
+:Administrator  a        owl:Class ;
+        rdfs:comment     "An individual who helps run an organization"@en ;
+        rdfs:label       "Administrator"@en ;
+        rdfs:subClassOf  :Staff , :Occupation .
+
+:doi    a                   owl:DatatypeProperty ;
+        rdfs:comment        "A digital object identifier for a document"@en ;
+        rdfs:label          "Digital Object Identifier"@en ;
+        rdfs:subPropertyOf  dc:identifier .
+
+:hasDoctoralConsortiumDeadline
+        a                   owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for submissions to a doctoral consortium."@en ;
+        rdfs:label          "Doctoral Consortium Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:hasEarlyRegistrationDeadline
+        a                   owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for early registration for an event."@en ;
+        rdfs:label          "Early Registration Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:Course  a            owl:Class ;
+        rdfs:comment  "\n\tA part of a curriculum that covers a specific topic of study\n    "@en ;
+        rdfs:label    "Course"@en .
+
+:Volume  a               owl:Class ;
+        rdfs:comment     "A volume in a journal issue"@en ;
+        rdfs:label       "Volume"@en ;
+        rdfs:subClassOf  :Publication ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   :ofJournal
+                         ] ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   :number
+                         ] .
+
+:hasPersonReference  a      owl:ObjectProperty ;
+        rdfs:comment        "Indicates that an announcement mentions a particular individual"@en ;
+        rdfs:domain         :Announcement ;
+        rdfs:label          "Mentions"@en ;
+        rdfs:range          foaf:Person ;
+        rdfs:subPropertyOf  :hasReference .
+
+:hasWorkshopProposalDeadline
+        a                   owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for workshop proposals for an event."@en ;
+        rdfs:label          "Workshop Proposal Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:assignedTo  a        owl:ObjectProperty ;
+        rdfs:comment  "Indicates an individual who has been assigned the action item"@en ;
+        rdfs:domain   :ActionItem ;
+        rdfs:label    "Assigned To"@en ;
+        rdfs:range    foaf:Person .
+
+:Seminar  a              owl:Class ;
+        rdfs:comment     "a small group of students, as in a university, engaged in advanced study and original research under a member of the faculty and meeting regularly to exchange information and hold discussions"@en ;
+        rdfs:label       "Seminar"@en ;
+        rdfs:subClassOf  :Event .
+
+:isPlayedBy  a        owl:ObjectProperty ;
+        rdfs:comment  "Establishes a relationship between a role and the individual who plays it"@en ;
+        rdfs:domain   :Role ;
+        rdfs:label    "Is Played By"@en ;
+        rdfs:range    foaf:Agent .
+
+:Theme  a             owl:Class ;
+        rdfs:comment  "A research theme, usually encompassing many concepts and research projects"@en ;
+        rdfs:label    "Theme"@en .
+
+:SeniorSoftwareEngineer
+        a                owl:Class ;
+        rdfs:comment     "An individual employed to perform software development who is\n    capable of being a technical lead, a lead developer, and take on\n    some management responsibilities"@en ;
+        rdfs:label       "Senior Software Engineer"@en ;
+        rdfs:subClassOf  :SoftwareEngineer .
+
+:ConferencePaper  a      owl:Class ;
+        rdfs:comment     "A paper published in the proceedings of a conference"@en ;
+        rdfs:label       "Conference Paper"@en ;
+        rdfs:subClassOf  :ProceedingPaper .
+
+:Publisher  a            owl:Class ;
+        rdfs:comment     "An organization that publishes journals, books and >other publications"@en ;
+        rdfs:label       "Publisher"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:Symposium  a            owl:Class ;
+        rdfs:Comment     "Represents a symposium event"@en ;
+        rdfs:label       "Symposium"@en ;
+        rdfs:subClassOf  :Event .
+
+:Doctor  a               owl:Class ;
+        rdfs:comment     "An individual who has complete their doctorate work and obtained their doctoral degree in any field"@en ;
+        rdfs:label       "Doctor"@en ;
+        rdfs:subClassOf  :Role .
+
+:AdjunctProfessor  a     owl:Class ;
+        rdfs:comment     "An adjunct professor role is a faculty member hired by contract to teach a single course. This is not a tenure-track position"@en ;
+        rdfs:label       "Adjunct Professor"@en ;
+        rdfs:subClassOf  :Faculty .
+
+:Library  a              owl:Class ;
+        rdfs:comment     "\n      A library is an organized collection of information resources made accessible to a defined community for reference or borrowing. It provides physical or digital access to material, and may be a physical building or room, or a virtual space, or both.\n    "@en ;
+        rdfs:label       "Library"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:Faculty  a              owl:Class ;
+        rdfs:comment     "\n      An individual employed as a professor\n    "@en , "\n      A faculty member teaches a course or holds tenure.\n    "@en ;
+        rdfs:label       "Faculty"@en ;
+        rdfs:subClassOf  :Occupation , :Role .
+
+:Syllabus  a             owl:Class ;
+        rdfs:comment     "A document explaining the outline and schedule of a class"@en ;
+        rdfs:label       "Class Syllabus"@en ;
+        rdfs:subClassOf  foaf:Document .
+
+:index  a             owl:DatatypeProperty ;
+        rdfs:comment  "Indicates a person's index in an instance's role list"@en ;
+        rdfs:label    "Role Number"@en ;
+        rdfs:range    xsd:positiveInteger .
+
+:ofJournal  a         owl:ObjectProperty ;
+        rdfs:comment  "Establishes the relationship between an issue and its journal"@en ;
+        rdfs:domain   :Volume ;
+        rdfs:label    "Of Journal"@en ;
+        rdfs:range    :Journal .
+
+:Program  a              owl:Class ;
+        rdfs:comment     "A program created by a funding agency"@en ;
+        rdfs:label       "Program"@en ;
+        rdfs:subClassOf  foaf:Agent .
+
+:MeetingNote  a       owl:Class ;
+        rdfs:comment  "Meeting notes recorded for a particular meeting"@en ;
+        rdfs:label    "Meeting Notes"@en .
+
+:hasTopic  a          owl:ObjectProperty ;
+        rdfs:comment  "Relates various objects to a particular concept"@en ;
+        rdfs:label    "Has Topic"@en ;
+        rdfs:range    :Concept .
+
+:Director  a             owl:Class ;
+        rdfs:comment     "Director of an organization"@en ;
+        rdfs:label       "Director"@en ;
+        rdfs:subClassOf  :Staff , :Member .
+
+:Responsibility  a    owl:Class ;
+        rdfs:comment  "Set of responsibilities a role is comprised of"@en ;
+        rdfs:label    "Responsbility"@en .
+
+:ISWC   a                owl:Class ;
+        rdfs:comment     "The set of all meetings of the International Semantic Web Conference"@en ;
+        rdfs:label       "International Semantic Web Conference"@en ;
+        rdfs:subClassOf  :Conference .
+
+:hasDemoDeadline  a         owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for demonstration submissions for an event."@en ;
+        rdfs:label          "Demonstration Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:KeynotePresentation  a  owl:Class ;
+        rdfs:comment     "A Keynote Address given at an event"@en ;
+        rdfs:label       "Keynote Presentation"@en ;
+        rdfs:subClassOf  :Presentation .
+
+:Visitor  a              owl:Class ;
+        rdfs:comment     "An individual who has visited the Tetherless World Constellation as a speaker at an event, or professor, or collaborator, for an extended period"@en ;
+        rdfs:label       "Visitor"@en ;
+        rdfs:subClassOf  :Role .
+
+:DataScientist  a        owl:Class ;
+        rdfs:comment     "An individual who specializes in the management, curation, and stewardship of  data"@en ;
+        rdfs:label       "Post-Doc"@en ;
+        rdfs:subClassOf  :ResearchScientist .
+
+:containsActionItem  a  owl:ObjectProperty ;
+        rdfs:comment  "Relates an action item to the Meeting Notes object that created that action item"@en ;
+        rdfs:domain   :MeetingNote ;
+        rdfs:label    "Contains Action Item"@en ;
+        rdfs:range    :ActionItem .
+
+:hasSupportDeadline  a      owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for submitting for financial support."@en ;
+        rdfs:label          "Support Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:MiscPublication  a      owl:Class ;
+        rdfs:comment     "A publication that for one reason or another does not fit into another publication category"@en ;
+        rdfs:label       "Miscellaneous Publication"@en ;
+        rdfs:subClassOf  :Publication .
+
+:hasParentTheme  a    owl:ObjectProperty , owl:FunctionalProperty ;
+        rdfs:comment  "Indicates that one theme is subsumed by another"@en ;
+        rdfs:domain   :Theme ;
+        rdfs:label    "Has Parent Theme"@en ;
+        rdfs:range    :Theme .
+
+:Demonstration  a     owl:Class ;
+        rdfs:comment  "Identifies a demonstration of a technology or data set"@en ;
+        rdfs:label    "Demonstration"@en .
+
+:Meeting  a              owl:Class ;
+        rdfs:comment     "Represents any meeting event"@en ;
+        rdfs:label       "Meeting"@en ;
+        rdfs:subClassOf  :Event ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   :hasMeetingNotes
+                         ] ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      :hasAttendee
+                         ] ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:maxCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      :hasProjectReference
+                         ] .
+
+:       a                owl:Ontology ;
+        rdfs:comment     "\n\tThis ontology is used within the Tetherless World Constellation (TWC) at Rensselaer Polytechnic Institute (RPI), Troy, New York.  It was originally designed and developed as part of the creation of a new web site utilizing the Drupal Content Management System (CMS) in 2009, but has since grown into an ontology used by various projects within the TWC lab including the Virtual Solar-Terrestrial Observatory (VSTO), the Biological and Chemical Oceanography - Data Management Office (BCO-DMO), Deep Carbon Observatory - Data Science project (DCO-DS), and many others.\n    "@en ;
+        rdfs:label       "Tetherless World Constellation Ontology"@en ;
+        dc:contributor   <http://tw.rpi.edu/instances/StephanZednik> ;
+        dc:creator       <http://tw.rpi.edu/instances/PatrickWest> , <http://tw.rpi.edu/instances/EvanPatton> ;
+        dc:date          "2013-10-01" ;
+        dc:publisher     <http://tw.rpi.edu/instances/TetherlessWorldConstellation> ;
+        dc:rights        "This ontology is distributed under a Creative Commons Attribution License http://creativecommons.org/licenses/by/3.0/"@en ;
+        dc:title         "Tetherless World Constellation Ontology"@en ;
+        owl:imports      <http://xmlns.com/foaf/spec/index.rdf> , sioc: , time: ;
+        owl:versionInfo  "v 1.0 $Revision: 11325 $: $Author: pwest $: $Date: 2015-08-04 01:56:21 -0600 (Tue, 04 Aug 2015) $:" .
+
+:ofVolume  a          owl:ObjectProperty ;
+        rdfs:comment  "Establishes the relationship between a volume and the issue it appears in."@en ;
+        rdfs:domain   :Issue ;
+        rdfs:label    "Of Issue"@en ;
+        rdfs:range    :Volume .
+
+:hasRegistrationDeadline
+        a                   owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for registering for an event."@en ;
+        rdfs:label          "Registration Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:InvitedTalk  a          owl:Class ;
+        rdfs:comment     "A talk/presentation given at an event by an invited speaker"@en ;
+        rdfs:label       "Invited Talk"@en ;
+        rdfs:subClassOf  :Presentation .
+
+:ResearchAssociate  a    owl:Class ;
+        rdfs:comment     "An individual who collaborates on research projects"@en ;
+        rdfs:label       "Research Associate"@en ;
+        rdfs:subClassOf  :Researcher , :Occupation .
+
+:Issue  a                owl:Class ;
+        rdfs:comment     "An issue of a journal, date time coverage indicates the start and end of the issue"@en ;
+        rdfs:label       "Issue"@en ;
+        rdfs:subClassOf  :Publication ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   :ofVolume
+                         ] ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   :number
+                         ] .
+
+:hasPanelDeadline  a        owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for panel submissions for an event."@en ;
+        rdfs:label          "Panel Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:hasAffiliation  a    owl:ObjectProperty ;
+        rdfs:comment  "Indicates a person's affiliation with a particular organization"@en ;
+        rdfs:domain   foaf:Agent ;
+        rdfs:label    "Affiliated With"@en .
+
+:humanReadablePage  a  owl:DatatypeProperty ;
+        rdfs:comment  "Property used for having the server redirect browsers to an appropriate HTML page rather than a machine-readable one"@en ;
+        rdfs:label    "Human Readable Page"@en ;
+        rdfs:range    xsd:anyURI .
+
+:DeputyDirector  a       owl:Class ;
+        rdfs:comment     "Deputy director of an organization"@en ;
+        rdfs:label       "Deputy Director"@en ;
+        rdfs:subClassOf  :Staff , :Member .
+
+:hasNotificationDeadline
+        a                   owl:ObjectProperty ;
+        rdfs:comment        "Indicates the deadline for when notifications will be sent out regarding acceptance of submissions to an event"@en ;
+        rdfs:label          "Notification Deadline"@en ;
+        rdfs:range          time:Instant ;
+        rdfs:subPropertyOf  :hasDeadline .
+
+:hasSelector  a       owl:ObjectProperty ;
+        rdfs:comment  "The person who selects this work for a particular context"@en ;
+        rdfs:domain   :SelectedWork ;
+        rdfs:label    "Has Selector"@en ;
+        rdfs:range    foaf:Agent .
+
+:WorkingGroup  a         owl:Class ;
+        rdfs:comment     "A working group created to address an issue for a particular project"@en ;
+        rdfs:label       "Working Group"@en ;
+        rdfs:subClassOf  foaf:Group .
+
+:Editor  a               owl:Class ;
+        rdfs:comment     "Represents an individual's role in editing a document"@en ;
+        rdfs:label       "Editor"@en ;
+        rdfs:subClassOf  :Role .
+
+:UndergraduateStudent
+        a                owl:Class ;
+        rdfs:comment     "A student working on his or her Bachelor's degree"@en ;
+        rdfs:label       "Undergraduate Student"@en ;
+        rdfs:subClassOf  :Student .
+
+:hasWorkingGroupReference
+        a                   owl:ObjectProperty ;
+        rdfs:comment        "Specifies that a meeting is associated with a particular working group"@en ;
+        rdfs:domain         :Meeting ;
+        rdfs:label          "Has Working Group Reference"@en ;
+        rdfs:range          :WorkingGroup ;
+        rdfs:subPropertyOf  :hasReference .
+
+:University  a           owl:Class ;
+        rdfs:comment     "An institution of higher education and\n    research which grants academic degrees in a variety of subjects and\n    provides both undergraduate education and postgraduate education."@en ;
+        rdfs:label       "University"@en ;
+        rdfs:subClassOf  foaf:Organization .
+
+:PrincipalSoftwareEngineer
+        a                owl:Class ;
+        rdfs:comment     "\n\tAn individual employed to perform software development who is responsible for the systems and applications architecture, and lead in the design and conceptualization of new data platforms and software frameworks.\n    "@en ;
+        rdfs:label       "Principal Software Engineer"@en ;
+        rdfs:subClassOf  :SoftwareEngineer .
+
+:PaperPresentation  a    owl:Class ;
+        rdfs:comment     "A presentation given based on a research paper"@en ;
+        rdfs:label       "Paper Presentation"@en ;
+        rdfs:subClassOf  :Presentation .
+
+:PhdStudent  a           owl:Class ;
+        rdfs:comment     "A student seeking a doctorate"@en ;
+        rdfs:label       "Ph.D. Student"@en ;
+        rdfs:subClassOf  :GraduateStudent .
+
+:Announcement  a         owl:Class ;
+        rdfs:comment     "An announcement item to be displayed in a web feed."@en ;
+        rdfs:label       "Announcement"@en ;
+        rdfs:subClassOf  sioc:Post .
+
+:forCourse  a         owl:ObjectProperty ;
+        rdfs:comment  "A class that is taught has part of an ongoing course"@en ;
+        rdfs:domain   :CourseClass ;
+        rdfs:label    "For Course"@en ;
+        rdfs:range    :Course .

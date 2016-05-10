@@ -5,3 +5,12 @@ Content-type: text/html
 
 URI: schema.owl
 Content-type: application/rdf+xml
+
+URI: schema.ttl
+Content-type: text/turtle
+
+URI: schema.n3
+Content-type: text/n3
+
+URI: schema.nt
+Content-type: application/n-triples
